@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moving Love Heart</title>
+
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="heart-container"></div>
+
+<script>
+const container = document.getElementById("heart-container");
+
+const total = 90;
+const words = [];
+
+for(let i = 0; i < total; i++){
+
+    const div = document.createElement("div");
+    div.className = "love";
+    div.innerText = "NINA";
+
+    container.appendChild(div);
+    words.push(div);
+}
+
+function animate(time){
+
+    words.forEach((word, i) => {
+
+        // Position around heart
+        let t = (i / total) * Math.PI * 2;
+
+        // SLOWER movement
+        t += time * 0.00025;
+
+        // Perfect heart formula
+        let x = 16 * Math.pow(Math.sin(t), 3);
+
+        let y =
+            13 * Math.cos(t)
+            - 5 * Math.cos(2 * t)
+            - 2 * Math.cos(3 * t)
+            - Math.cos(4 * t);
+
+        // Scale heart
+        x *= 18;
+        y *= 18;
+
+        // Center heart
+        let finalX = 350 + x;
+        let finalY = 330 - y;
+
+        word.style.left = finalX + "px";
+        word.style.top = finalY + "px";
+
+        // Fade as it reaches bottom
+        const fade = (finalY - 100) / 520;
+
+        word.style.opacity = Math.max(0.03, 1 - fade);
+
+        // Smaller toward bottom
+        const scale = Math.max(0.25, 1 - fade * 0.75);
+
+        word.style.transform =
+            `translate(-50%, -50%) scale(${scale})`;
+    });
+
+    requestAnimationFrame(animate);
+}
+
+animate(0);
+</script>
+
+</body>
+</html>
