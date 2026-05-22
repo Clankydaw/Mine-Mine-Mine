@@ -7,31 +7,29 @@
 body{
     background:black;
     overflow:hidden;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    width:100vw;
     height:100vh;
 }
 
 #heart-container{
-    position:relative;
-    width:700px;
-    height:700px;
+    position:fixed;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
+    width:100vw;
+    height:100vh;
 }
 
 .love{
     position:absolute;
     color:#ffd1dc;
     font-family:Arial, sans-serif;
-    font-size:34px; /* Bigger text */
+    font-size:clamp(16px, 4vw, 34px);
     font-weight:bold;
     white-space:nowrap;
-
     text-shadow:
         0 0 5px #ff7eb9,
         0 0 10px #ff7eb9,
         0 0 20px #ff7eb9,
         0 0 35px #ff7eb9;
-
-    transform:translate(-50%, -50%);
 }

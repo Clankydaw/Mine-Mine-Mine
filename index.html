@@ -19,26 +19,26 @@ const total = 90;
 const words = [];
 
 for(let i = 0; i < total; i++){
-
     const div = document.createElement("div");
     div.className = "love";
-    div.innerText = "NINA";
-
+    div.innerText = "I love you";
     container.appendChild(div);
     words.push(div);
 }
 
 function animate(time){
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    const centerX = w / 2;
+    const centerY = h / 2;
+
+    const size = Math.min(w, h) / 50;
 
     words.forEach((word, i) => {
-
-        // Position around heart
         let t = (i / total) * Math.PI * 2;
-
-        // SLOWER movement
         t += time * 0.00025;
 
-        // Perfect heart formula
         let x = 16 * Math.pow(Math.sin(t), 3);
 
         let y =
@@ -47,24 +47,19 @@ function animate(time){
             - 2 * Math.cos(3 * t)
             - Math.cos(4 * t);
 
-        // Scale heart
-        x *= 18;
-        y *= 18;
+        x *= size;
+        y *= size;
 
-        // Center heart
-        let finalX = 350 + x;
-        let finalY = 330 - y;
+        let finalX = centerX + x;
+        let finalY = centerY - y;
 
         word.style.left = finalX + "px";
         word.style.top = finalY + "px";
 
-        // Fade as it reaches bottom
-        const fade = (finalY - 100) / 520;
+        const fade = (finalY - centerY + 220) / 430;
+        word.style.opacity = Math.max(0.05, 1 - fade);
 
-        word.style.opacity = Math.max(0.03, 1 - fade);
-
-        // Smaller toward bottom
-        const scale = Math.max(0.25, 1 - fade * 0.75);
+        const scale = Math.max(0.3, 1 - fade * 0.7);
 
         word.style.transform =
             `translate(-50%, -50%) scale(${scale})`;
